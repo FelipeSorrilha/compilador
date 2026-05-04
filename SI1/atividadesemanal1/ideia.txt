@@ -1,0 +1,58 @@
+'''
+LE = [Inicial]; LNE = [Inicial]; BSS = [ ];
+EC = Inicial;
+Enquanto LNE != [ ], faça:
+ Se EC == Objetivo (ou atende descrição do objetivo), então:
+ Retorna LE;
+ 
+ 
+ Se EC não tem filhos, então:
+ Enquanto LE não está vazio e EC == o primeiro elemento de LE,
+ faça:
+ 
+ 
+ acrescenta EC em BSS;
+ remove primeiro elemento de LE;
+ remove primeiro elemento de LNE;
+ EC = primeiro elemento de L
+ acrescenta EC a LE;
+ Senão:
+coloca os filhos de EC em LNE;
+EC = primeiro elemento de LNE;
+acrescenta EC a LE;
+Retorna FALHA;
+
+'''
+'''
+
+typedef struct{
+char ponto;
+char[4] filhos;
+};
+
+
+
+BUSCA_RETROCESSO (G, Inicial):
+    int contador = 0;
+    LE = [Inicial]; LNE = [Inicial]; BSS = [ ];
+    EC = Inicial;
+    # como começa em A:
+    LE[0] = Inicial;
+    While(LNE != []){
+        if(tamanho(LE) == 5){
+            LE[6] = inicial;
+            return;
+        }
+
+    
+
+        // aqui entao vou analisar o ponto atual
+        // adicionar ele na LE
+        le[contador] = char atual
+
+        // vejo todos os filhos, adiciono na LNE se não estiverem já lá
+        naosei
+        // vê quais não estão na LE e vai pra algum deles, o primeiro q tiver
+
+    }
+'''
