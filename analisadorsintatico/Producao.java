@@ -1,8 +1,10 @@
+package com.mycompany.analisadorsintatico;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.analisadorsintatico;
+
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -50,16 +52,23 @@ public class Producao {
 
     //  TODAS AS PRODUÇÕES DA GRAMÁTICA GYH
 
-    /** R1 : Prog → PCProg : PCDec LD : PCProg LC */
+    /**
+     * R1 : Prog → : DEC LD : PROG LC
+     *
+     * Formato do arquivo .gyh:
+     *   :DEC          (DOIS_PONTOS PCDec)  → abre seção de declarações
+     *   [declarações]
+     *   :PROG         (DOIS_PONTOS PCProg) → abre seção de comandos
+     *   [comandos]
+     */
     public static final Producao R1 = new Producao(
         NaoTerminais.Prog,
         of(
-            Terminais.PCProg,
-            Terminais.DOIS_PONTOS,
-            Terminais.PCDec,
+            Terminais.DOIS_PONTOS,   // ':'  de  :DEC
+            Terminais.PCDec,         // 'DEC'
             NaoTerminais.LD,
-            Terminais.DOIS_PONTOS,
-            Terminais.PCProg,
+            Terminais.DOIS_PONTOS,   // ':'  de  :PROG
+            Terminais.PCProg,        // 'PROG'
             NaoTerminais.LC
         )
     );
