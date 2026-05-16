@@ -1,35 +1,16 @@
 package com.mycompany.analisadorsintatico;
 
-
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-/**
- * Ponto de entrada do analisador sintático LL(1) para a linguagem GYH.
- *
- * Uso:
- *   java AnalisadorSintatico <arquivo.gyh>
- *
- * Formato esperado do arquivo .gyh:
- *   :DEC
- *     variavel : INT
- *     variavel : REAL
- *   :PROG
- *     LER variavel
- *     variavel := expressao
- *     SE condicao ENTAO comando FIM
- *     ENQTO condicao comando
- *     INI lista_de_comandos FIM
- *     IMPRIMIR variavel | "cadeia"
- */
+
 public class AnalisadorSintatico {
 
     public static void main(String[] args) {
 
-        String caminhoArquivo = "programa1.gyh";
+        String caminhoArquivo = "programa18.gyh";
 
         // ── 2. Lê o conteúdo do arquivo ────────────────────────────────────
         String conteudo;

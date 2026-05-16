@@ -2,6 +2,8 @@ package com.mycompany.analisadorsintatico;
 
 
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,6 +136,14 @@ public class Lexer {
             }
             pos++;
             return new Token(Terminais.OPRel, "<", linhaInicio);
+        }
+        if (c == '!') {
+            if (pos + 1 < src.length() && src.charAt(pos + 1) == '=') {
+                pos += 2; return new Token(Terminais.OPRel, "!=", linhaInicio);
+            }
+            System.err.println("Erro léxico: '!' sem '=' na linha " + linha);
+            pos++;
+            return null;
         }
         if (c == '>') {
             if (pos + 1 < src.length() && src.charAt(pos + 1) == '=') {

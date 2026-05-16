@@ -205,11 +205,23 @@ public class Producao {
 
     /**
      * R13 : TR → EA OPRel EA
-     * (única regra de TR — conflito com "TR → ( ER )" foi removido)
+     * Usada quando a expressão relacional começa com Var, NumInt ou NumReal.
      */
     public static final Producao R13 = new Producao(
         NaoTerminais.TR,
         of(NaoTerminais.EA, Terminais.OPRel, NaoTerminais.EA)
+    );
+
+    /**
+     * R13b : TR → ( ER )
+     * Usada quando a condição relacional está envolta em parênteses,
+     * ex.: (parametro == 0) ou (x > 1).
+     * Resolve o conflito: '(' em TR agora abre uma sub-expressão booleana,
+     * não uma sub-expressão aritmética.
+     */
+    public static final Producao R13b = new Producao(
+        NaoTerminais.TR,
+        of(Terminais.ABRE_PAR, NaoTerminais.ER, Terminais.FECHA_PAR)
     );
 
     /** R14a : OPBol → E */
@@ -323,12 +335,14 @@ public class Producao {
     );
 
     /**
-     * R23a : CMDCond' → PCSenao CMD PCFim
-     * (PCFim obrigatório — elimina o dangling else)
+     * R23a : CMDCond' → PCSenao CMD
+     * O ramo SENAO não exige PCFim explícito; o FIM só é obrigatório
+     * no bloco INI...FIM (R25). Após o CMD do SENAO, o próximo token
+     * pertence ao FOLLOW de CMDCondlinha e é tratado pelo nível acima (LC').
      */
     public static final Producao R23a = new Producao(
         NaoTerminais.CMDCondlinha,
-        of(Terminais.PCSenao, NaoTerminais.CMD, Terminais.PCFim)
+        of(Terminais.PCSenao, NaoTerminais.CMD)
     );
 
     /**
@@ -338,6 +352,13 @@ public class Producao {
     public static final Producao R23b = new Producao(
         NaoTerminais.CMDCondlinha,
         of(Terminais.PCFim)
+    );
+    
+    // R23c : CMDCond' → ε
+    // SE sem FIM explícito fecha quando o próximo token
+    // está no FOLLOW(CMDCondlinha)
+    public static final Producao R23c = new Producao(
+        NaoTerminais.CMDCondlinha, eps()
     );
 
     /** R24 : CMDRep → PCEnqto ER CMD */

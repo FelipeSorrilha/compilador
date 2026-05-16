@@ -2,10 +2,6 @@ package com.mycompany.analisadorsintatico;
 
 
 
-/**
- * Representa um token produzido pelo analisador léxico.
- * Armazena o tipo terminal, o lexema original e a linha de origem.
- */
 public class Token {
     public final Terminais tipo;
     public final String lexema;

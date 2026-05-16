@@ -84,10 +84,10 @@ public class Parser {
                 Terminais topoT = (Terminais) topo;
 
                 if (topoT == atual.tipo) {
-                    if (verbose) {
-                        System.out.printf("  Casou:   %-18s com  \"%s\"%n",
-                                          topoT, atual.lexema);
-                    }
+                    //if (verbose) {
+                        //System.out.printf("  Casou:   %-18s com  \"%s\"%n",
+                                          //topoT, atual.lexema);
+                   // }
                     pilha.pop();
                     avancar();
 
@@ -112,9 +112,9 @@ public class Parser {
                     return false;
                 }
 
-                if (verbose) {
-                    System.out.printf("  Aplicou: %s%n", prod);
-                }
+                //if (verbose) {
+                //    System.out.printf("  Aplicou: %s%n", prod);
+                //}
 
                 pilha.pop();
 
@@ -141,5 +141,6 @@ public class Parser {
         }
         System.err.println("  Detalhe  : " + motivo);
         System.err.println("======================");
+        System.exit(1);
     }
 }

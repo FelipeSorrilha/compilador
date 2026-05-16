@@ -104,6 +104,7 @@ public class Tabela {
     tabela.get(NaoTerminais.ERlinha).put(Terminais.E, Producao.R12a);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.OU, Producao.R12a);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.PCEntao, Producao.R12b);
+    tabela.get(NaoTerminais.ERlinha).put(Terminais.FECHA_PAR, Producao.R12b); // ER' → ε antes de ')' em TR → ( ER )
     tabela.get(NaoTerminais.ERlinha).put(Terminais.Var, Producao.R12b);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.PCLer, Producao.R12b);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.PCImprimir, Producao.R12b);
@@ -113,7 +114,7 @@ public class Tabela {
     tabela.get(NaoTerminais.TR).put(Terminais.NumInt, Producao.R13);
     tabela.get(NaoTerminais.TR).put(Terminais.NumReal, Producao.R13);
     tabela.get(NaoTerminais.TR).put(Terminais.Var, Producao.R13);
-    tabela.get(NaoTerminais.TR).put(Terminais.ABRE_PAR, Producao.R13);
+    tabela.get(NaoTerminais.TR).put(Terminais.ABRE_PAR, Producao.R13b); // (ER) — condição entre parênteses
     tabela.get(NaoTerminais.OPBol).put(Terminais.E, Producao.R14a);
     tabela.get(NaoTerminais.OPBol).put(Terminais.OU, Producao.R14b);
     tabela.get(NaoTerminais.LC).put(Terminais.Var, Producao.R15);
@@ -143,19 +144,19 @@ public class Tabela {
     tabela.get(NaoTerminais.Saida).put(Terminais.Cadeia, Producao.R21b);
     tabela.get(NaoTerminais.CMDCond).put(Terminais.PCSe, Producao.R22);
     tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCSenao, Producao.R23a);
-    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCFim, Producao.R23b); 
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCFim, Producao.R23b);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.Var, Producao.R23c);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCLer, Producao.R23c);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCImprimir, Producao.R23c);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCSe, Producao.R23c);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCEnqto, Producao.R23c);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.PCIni,Producao.R23c);
+    tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.Ecomercial, Producao.R23c);
     tabela.get(NaoTerminais.CMDRep).put(Terminais.PCEnqto, Producao.R24);
     tabela.get(NaoTerminais.SUB).put(Terminais.PCIni, Producao.R25);
     
     }
 
-    /**
-     * Consulta a tabela LL(1).
-     *
-     * @param nt  não-terminal no topo da pilha
-     * @param t   terminal do token corrente
-     * @return    produção a aplicar, ou null se não há entrada
-     */
     public Producao get(NaoTerminais nt, Terminais t) {
         java.util.Map<Terminais, Producao> linha = tabela.get(nt);
         if (linha == null) return null;
