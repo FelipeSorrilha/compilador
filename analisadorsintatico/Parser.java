@@ -97,14 +97,14 @@ public class Parser {
 
     private void erroSintatico(String motivo, Token token, NaoTerminais esperado) {
         System.err.println();
-        System.err.println("=== ERRO SINTÁTICO ===");
-        System.err.println("  Linha    : " + token.linha);
-        System.err.println("  Token    : " + token.tipo);
-        System.err.println("  Lexema   : \"" + token.lexema + "\"");
+        System.err.println("ERRO SINTÁTICO");
+        System.err.println("Linha: " +token.linha);
+        System.err.println("Token: " +token.tipo);
+        System.err.println("Lexema: \"" +token.lexema + "\"");
         if (esperado != null) {
-            System.err.println("  Esperado : algum símbolo inicial de " + esperado);
+            System.err.println("  Esperado: algum símbolo inicial de " + esperado);
         }
-        System.err.println("  Detalhe  : " + motivo);
+        System.err.println("Detalhe: " + motivo);
         System.err.println("======================");
         System.exit(1);
     }
