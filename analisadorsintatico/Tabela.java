@@ -44,7 +44,7 @@ public class Tabela {
     tabela.put(NaoTerminais.SUB, new HashMap<>());
     tabela.put(NaoTerminais.Saida, new HashMap<>());
 
-    tabela.get(NaoTerminais.Prog).put(Terminais.DOIS_PONTOS, Producao.R1); // :DEC inicia o programa
+    tabela.get(NaoTerminais.Prog).put(Terminais.DOIS_PONTOS, Producao.R1);
     tabela.get(NaoTerminais.LD).put(Terminais.Var, Producao.R2);
     tabela.get(NaoTerminais.LDlinha).put(Terminais.Var, Producao.R3a);
     tabela.get(NaoTerminais.LDlinha).put(Terminais.DOIS_PONTOS, Producao.R3b);
@@ -104,7 +104,7 @@ public class Tabela {
     tabela.get(NaoTerminais.ERlinha).put(Terminais.E, Producao.R12a);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.OU, Producao.R12a);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.PCEntao, Producao.R12b);
-    tabela.get(NaoTerminais.ERlinha).put(Terminais.FECHA_PAR, Producao.R12b); // ER' → ε antes de ')' em TR → ( ER )
+    tabela.get(NaoTerminais.ERlinha).put(Terminais.FECHA_PAR, Producao.R12b);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.Var, Producao.R12b);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.PCLer, Producao.R12b);
     tabela.get(NaoTerminais.ERlinha).put(Terminais.PCImprimir, Producao.R12b);
@@ -114,7 +114,7 @@ public class Tabela {
     tabela.get(NaoTerminais.TR).put(Terminais.NumInt, Producao.R13);
     tabela.get(NaoTerminais.TR).put(Terminais.NumReal, Producao.R13);
     tabela.get(NaoTerminais.TR).put(Terminais.Var, Producao.R13);
-    tabela.get(NaoTerminais.TR).put(Terminais.ABRE_PAR, Producao.R13b); // (ER) — condição entre parênteses
+    tabela.get(NaoTerminais.TR).put(Terminais.ABRE_PAR, Producao.R13b);
     tabela.get(NaoTerminais.OPBol).put(Terminais.E, Producao.R14a);
     tabela.get(NaoTerminais.OPBol).put(Terminais.OU, Producao.R14b);
     tabela.get(NaoTerminais.LC).put(Terminais.Var, Producao.R15);
@@ -154,7 +154,6 @@ public class Tabela {
     tabela.get(NaoTerminais.CMDCondlinha).put(Terminais.Ecomercial, Producao.R23c);
     tabela.get(NaoTerminais.CMDRep).put(Terminais.PCEnqto, Producao.R24);
     tabela.get(NaoTerminais.SUB).put(Terminais.PCIni, Producao.R25);
-    
     }
 
     public Producao get(NaoTerminais nt, Terminais t) {

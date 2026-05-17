@@ -1,7 +1,5 @@
 package com.mycompany.analisadorsintatico;
 
-
-
 public class Token {
     public final Terminais tipo;
     public final String lexema;

@@ -1,11 +1,5 @@
 package com.mycompany.analisadorsintatico;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +8,6 @@ public class Producao {
 
     private final NaoTerminais left;
     private final List<Symbol> right;
-
-    // Construtor
 
     public Producao(NaoTerminais left, List<Symbol> right) {
         this.left  = left;
@@ -38,29 +30,14 @@ public class Producao {
         return sb.toString();
     }
 
-
-    // Cria um lado direito com os símbolos fornecidos
     private static List<Symbol> of(Symbol... symbols) {
         return Arrays.asList(symbols);
     }
 
-    // Representa ε: lado direito vazio.
     private static List<Symbol> eps() {
         return Collections.emptyList();
     }
 
-
-    //  TODAS AS PRODUÇÕES DA GRAMÁTICA GYH
-
-    /**
-     * R1 : Prog → : DEC LD : PROG LC
-     *
-     * Formato do arquivo .gyh:
-     *   :DEC          (DOIS_PONTOS PCDec)  → abre seção de declarações
-     *   [declarações]
-     *   :PROG         (DOIS_PONTOS PCProg) → abre seção de comandos
-     *   [comandos]
-     */
     public static final Producao R1 = new Producao(
         NaoTerminais.Prog,
         of(
@@ -108,8 +85,6 @@ public class Producao {
         NaoTerminais.TipoVar,
         of(Terminais.PCReal)
     );
-
-    // ── Expressões Aritméticas ─────────────────────────────────────────────────
 
     /** R6 : EA → TA EA' */
     public static final Producao R6 = new Producao(
@@ -183,8 +158,6 @@ public class Producao {
         of(Terminais.ABRE_PAR, NaoTerminais.EA, Terminais.FECHA_PAR)
     );
 
-    // ── Expressões Relacionais e Booleanas ────────────────────────────────────
-
     /** R11 : ER → TR ER' */
     public static final Producao R11 = new Producao(
         NaoTerminais.ER,
@@ -203,22 +176,13 @@ public class Producao {
         eps()
     );
 
-    /**
-     * R13 : TR → EA OPRel EA
-     * Usada quando a expressão relacional começa com Var, NumInt ou NumReal.
-     */
+    /** R13 : TR → EA OPRel EA*/
     public static final Producao R13 = new Producao(
         NaoTerminais.TR,
         of(NaoTerminais.EA, Terminais.OPRel, NaoTerminais.EA)
     );
 
-    /**
-     * R13b : TR → ( ER )
-     * Usada quando a condição relacional está envolta em parênteses,
-     * ex.: (parametro == 0) ou (x > 1).
-     * Resolve o conflito: '(' em TR agora abre uma sub-expressão booleana,
-     * não uma sub-expressão aritmética.
-     */
+    /** R13b : TR → ( ER )*/
     public static final Producao R13b = new Producao(
         NaoTerminais.TR,
         of(Terminais.ABRE_PAR, NaoTerminais.ER, Terminais.FECHA_PAR)
@@ -235,8 +199,6 @@ public class Producao {
         NaoTerminais.OPBol,
         of(Terminais.OU)
     );
-
-    // ── Comandos ──────────────────────────────────────────────────────────────
 
     /** R15 : LC → CMD LC' */
     public static final Producao R15 = new Producao(
@@ -334,29 +296,19 @@ public class Producao {
         )
     );
 
-    /**
-     * R23a : CMDCond' → PCSenao CMD
-     * O ramo SENAO não exige PCFim explícito; o FIM só é obrigatório
-     * no bloco INI...FIM (R25). Após o CMD do SENAO, o próximo token
-     * pertence ao FOLLOW de CMDCondlinha e é tratado pelo nível acima (LC').
-     */
+    /** R23a : CMDCond' → PCSenao CMD*/
     public static final Producao R23a = new Producao(
         NaoTerminais.CMDCondlinha,
         of(Terminais.PCSenao, NaoTerminais.CMD)
     );
 
-    /**
-     * R23b : CMDCond' → PCFim
-     * (branch sem else — também fecha com PCFim)
-     */
+    /** R23b : CMDCond' → PCFim*/
     public static final Producao R23b = new Producao(
         NaoTerminais.CMDCondlinha,
         of(Terminais.PCFim)
     );
     
     // R23c : CMDCond' → ε
-    // SE sem FIM explícito fecha quando o próximo token
-    // está no FOLLOW(CMDCondlinha)
     public static final Producao R23c = new Producao(
         NaoTerminais.CMDCondlinha, eps()
     );
@@ -372,6 +324,4 @@ public class Producao {
         NaoTerminais.SUB,
         of(Terminais.PCIni, NaoTerminais.LC, Terminais.PCFim)
     );
-
-
 }

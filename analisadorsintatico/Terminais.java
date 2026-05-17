@@ -4,7 +4,10 @@
  */
 package com.mycompany.analisadorsintatico;
 
-
+/**
+ *
+ * @author Mille
+ */
 public enum Terminais implements Symbol {
     PCProg, PCDec, PCInt, PCReal, PCLer, PCImprimir,
     PCSe, PCEntao, PCSenao, PCEnqto, PCIni, PCFim,

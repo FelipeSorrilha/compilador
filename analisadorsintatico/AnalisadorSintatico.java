@@ -7,12 +7,9 @@ import java.util.List;
 
 
 public class AnalisadorSintatico {
-
     public static void main(String[] args) {
 
         String caminhoArquivo = "programa18.gyh";
-
-        // ── 2. Lê o conteúdo do arquivo ────────────────────────────────────
         String conteudo;
         try {
             conteudo = new String(Files.readAllBytes(Paths.get(caminhoArquivo)));
@@ -25,17 +22,15 @@ public class AnalisadorSintatico {
         System.out.println("Arquivo: " + caminhoArquivo);
         System.out.println("─".repeat(45));
 
-        // ── 3. Análise léxica ──────────────────────────────────────────────
         Lexer lexer = new Lexer(conteudo);
         List<Token> tokens = lexer.tokenizar();
 
         System.out.println("Tokens gerados:");
-        for (Token t : tokens) {
+        for (Token t: tokens) {
             System.out.printf("  L%-4d  %-18s \"%s\"%n", t.linha, t.tipo, t.lexema);
         }
         System.out.println("─".repeat(45));
 
-        // ── 4. Análise sintática LL(1) ─────────────────────────────────────
         Tabela tabela = new Tabela();
         Parser parser = new Parser(tokens, tabela);
         parser.setVerbose(true);

@@ -6,7 +6,7 @@ package com.mycompany.analisadorsintatico;
 
 /**
  *
- * @author Huelipe
+ * @author Mille
  */
 public interface Symbol {
     

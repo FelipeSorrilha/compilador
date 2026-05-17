@@ -4,7 +4,10 @@
  */
 package com.mycompany.analisadorsintatico;
 
-
+/**
+ *
+ * @author Mille
+ */
 public enum NaoTerminais implements Symbol {
     Prog, LD, LDlinha, Decl, TipoVar, EA, EAlinha, TA, TAlinha, FA, ER, ERlinha, TR, OPBol, LC, LClinha, CMD, CMDAtrib, CMDEnt, CMDSaida, CMDCond, CMDCondlinha, CMDRep, SUB, Saida
 }

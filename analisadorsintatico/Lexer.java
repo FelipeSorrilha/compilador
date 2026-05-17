@@ -1,33 +1,8 @@
 package com.mycompany.analisadorsintatico;
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Analisador léxico para arquivos .gyh.
- *
- * Regras do formato:
- *   :DEC          → seção de declarações  (gera DOIS_PONTOS + PCDec)
- *   :PROG         → seção de comandos     (gera DOIS_PONTOS + PCProg)
- *   var:INT       → Var DOIS_PONTOS PCInt
- *   var:REAL      → Var DOIS_PONTOS PCReal
- *   var := expr   → ATRIB  (":=" é um token único)
- *   :             → DOIS_PONTOS (quando isolado)
- *   #...          → comentário (ignorado até fim da linha)
- *   "texto"       → Cadeia
- *   ==  <  >  <= >= <> → OPRel
- *   +  -  *  /          → operadores aritméticos
- *   (  )                → parênteses
- *   identificadores     → Var (a menos que sejam palavras-chave)
- *   inteiros / reais    → NumInt / NumReal
- *   EOF                 → Ecomercial ($)
- */
 public class Lexer {
-
     private final String src;
     private int pos;
     private int linha;
@@ -38,9 +13,6 @@ public class Lexer {
         this.linha = 1;
     }
 
-    // -----------------------------------------------------------------------
-    // Ponto de entrada: retorna a lista completa de tokens
-    // -----------------------------------------------------------------------
     public List<Token> tokenizar() {
         List<Token> tokens = new ArrayList<>();
 
@@ -58,9 +30,6 @@ public class Lexer {
         return tokens;
     }
 
-    // -----------------------------------------------------------------------
-    // Pula espaços em branco e comentários (#)
-    // -----------------------------------------------------------------------
     private void pularEspacosEComentarios() {
         while (pos < src.length()) {
             char c = src.charAt(pos);
@@ -81,49 +50,36 @@ public class Lexer {
         }
     }
 
-    // -----------------------------------------------------------------------
-    // Lê e retorna o próximo token
-    // -----------------------------------------------------------------------
     private Token proximoToken() {
         int linhaInicio = linha;
         char c = src.charAt(pos);
 
-        // --- Dois-pontos, ATRIB e palavras-chave prefixadas com ':' ---
         if (c == ':') {
-            // := é ATRIB
             if (pos + 1 < src.length() && src.charAt(pos + 1) == '=') {
                 pos += 2;
                 return new Token(Terminais.ATRIB, ":=", linhaInicio);
             }
-            // :DEC, :PROG, :INT, :REAL são palavras-chave compostas
-            // → geram DOIS_PONTOS seguido do terminal da palavra
-            // (o lexer os emite como dois tokens separados)
-            pos++; // consome ':'
+            pos++;
             return new Token(Terminais.DOIS_PONTOS, ":", linhaInicio);
         }
 
-        // --- Cadeias ---
         if (c == '"') {
             return lerCadeia(linhaInicio);
         }
 
-        // --- Números ---
         if (Character.isDigit(c)) {
             return lerNumero(linhaInicio);
         }
 
-        // --- Identificadores e palavras-chave ---
         if (Character.isLetter(c) || c == '_') {
             return lerPalavra(linhaInicio);
         }
 
-        // --- Operadores relacionais ---
         if (c == '=') {
             if (pos + 1 < src.length() && src.charAt(pos + 1) == '=') {
                 pos += 2;
                 return new Token(Terminais.OPRel, "==", linhaInicio);
             }
-            // '=' isolado não é esperado nesta gramática — emite ATRIB como fallback
             pos++;
             return new Token(Terminais.ATRIB, "=", linhaInicio);
         }
@@ -153,7 +109,6 @@ public class Lexer {
             return new Token(Terminais.OPRel, ">", linhaInicio);
         }
 
-        // --- Operadores aritméticos e parênteses ---
         switch (c) {
             case '+': pos++; return new Token(Terminais.MAIS,      "+", linhaInicio);
             case '-': pos++; return new Token(Terminais.MENOS,     "-", linhaInicio);
@@ -163,29 +118,22 @@ public class Lexer {
             case ')': pos++; return new Token(Terminais.FECHA_PAR, ")", linhaInicio);
         }
 
-        // --- Caractere desconhecido ---
         System.err.println("Erro léxico: caractere inesperado '" + c + "' na linha " + linha);
         pos++;
         return null;
     }
 
-    // -----------------------------------------------------------------------
-    // Lê uma cadeia entre aspas duplas
-    // -----------------------------------------------------------------------
     private Token lerCadeia(int linhaInicio) {
-        pos++; // consome '"'
+        pos++; 
         StringBuilder sb = new StringBuilder();
         while (pos < src.length() && src.charAt(pos) != '"') {
             if (src.charAt(pos) == '\n') linha++;
             sb.append(src.charAt(pos++));
         }
-        if (pos < src.length()) pos++; // consome '"' de fechamento
+        if (pos < src.length()) pos++; 
         return new Token(Terminais.Cadeia, "\"" + sb + "\"", linhaInicio);
     }
 
-    // -----------------------------------------------------------------------
-    // Lê um número inteiro ou real
-    // -----------------------------------------------------------------------
     private Token lerNumero(int linhaInicio) {
         StringBuilder sb = new StringBuilder();
         boolean isReal = false;
@@ -197,9 +145,6 @@ public class Lexer {
         return new Token(isReal ? Terminais.NumReal : Terminais.NumInt, s, linhaInicio);
     }
 
-    // -----------------------------------------------------------------------
-    // Lê um identificador ou palavra-chave
-    // -----------------------------------------------------------------------
     private Token lerPalavra(int linhaInicio) {
         StringBuilder sb = new StringBuilder();
         while (pos < src.length()
@@ -209,12 +154,10 @@ public class Lexer {
         String palavra = sb.toString();
 
         switch (palavra) {
-            // Palavras-chave que aparecem como seção (sem ':') ou em contexto de tipo
             case "DEC":      return new Token(Terminais.PCDec,       palavra, linhaInicio);
             case "PROG":     return new Token(Terminais.PCProg,      palavra, linhaInicio);
             case "INT":      return new Token(Terminais.PCInt,       palavra, linhaInicio);
             case "REAL":     return new Token(Terminais.PCReal,      palavra, linhaInicio);
-            // Comandos
             case "LER":      return new Token(Terminais.PCLer,       palavra, linhaInicio);
             case "IMPRIMIR": return new Token(Terminais.PCImprimir,  palavra, linhaInicio);
             case "SE":       return new Token(Terminais.PCSe,        palavra, linhaInicio);
@@ -223,10 +166,8 @@ public class Lexer {
             case "ENQTO":    return new Token(Terminais.PCEnqto,     palavra, linhaInicio);
             case "INI":      return new Token(Terminais.PCIni,       palavra, linhaInicio);
             case "FIM":      return new Token(Terminais.PCFim,       palavra, linhaInicio);
-            // Operadores booleanos
             case "E":        return new Token(Terminais.E,           palavra, linhaInicio);
             case "OU":       return new Token(Terminais.OU,          palavra, linhaInicio);
-            // Qualquer outro → identificador
             default:         return new Token(Terminais.Var,         palavra, linhaInicio);
         }
     }
