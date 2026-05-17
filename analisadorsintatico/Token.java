@@ -6,9 +6,9 @@ public class Token {
     public final int linha;
 
     public Token(Terminais tipo, String lexema, int linha) {
-        this.tipo   = tipo;
+        this.tipo = tipo;
         this.lexema = lexema;
-        this.linha  = linha;
+        this.linha = linha;
     }
 
     @Override
