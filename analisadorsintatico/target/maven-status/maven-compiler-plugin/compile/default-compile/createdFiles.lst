@@ -1,0 +1,10 @@
+com\mycompany\analisadorsintatico\LeArquivo.class
+com\mycompany\analisadorsintatico\Producao.class
+com\mycompany\analisadorsintatico\Terminais.class
+com\mycompany\analisadorsintatico\Parser.class
+com\mycompany\analisadorsintatico\NaoTerminais.class
+com\mycompany\analisadorsintatico\AnaliseLexica.class
+com\mycompany\analisadorsintatico\Symbol.class
+com\mycompany\analisadorsintatico\Token.class
+com\mycompany\analisadorsintatico\Tabela.class
+com\mycompany\analisadorsintatico\ProjetoCompiladores.class
