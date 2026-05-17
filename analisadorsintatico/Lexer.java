@@ -110,11 +110,11 @@ public class Lexer {
         }
 
         switch (c) {
-            case '+': pos++; return new Token(Terminais.MAIS,      "+", linhaInicio);
-            case '-': pos++; return new Token(Terminais.MENOS,     "-", linhaInicio);
-            case '*': pos++; return new Token(Terminais.MULT,      "*", linhaInicio);
-            case '/': pos++; return new Token(Terminais.DIV,       "/", linhaInicio);
-            case '(': pos++; return new Token(Terminais.ABRE_PAR,  "(", linhaInicio);
+            case '+': pos++; return new Token(Terminais.MAIS, "+", linhaInicio);
+            case '-': pos++; return new Token(Terminais.MENOS, "-", linhaInicio);
+            case '*': pos++; return new Token(Terminais.MULT, "*", linhaInicio);
+            case '/': pos++; return new Token(Terminais.DIV, "/", linhaInicio);
+            case '(': pos++; return new Token(Terminais.ABRE_PAR, "(", linhaInicio);
             case ')': pos++; return new Token(Terminais.FECHA_PAR, ")", linhaInicio);
         }
 
@@ -154,21 +154,21 @@ public class Lexer {
         String palavra = sb.toString();
 
         switch (palavra) {
-            case "DEC":      return new Token(Terminais.PCDec,       palavra, linhaInicio);
-            case "PROG":     return new Token(Terminais.PCProg,      palavra, linhaInicio);
-            case "INT":      return new Token(Terminais.PCInt,       palavra, linhaInicio);
-            case "REAL":     return new Token(Terminais.PCReal,      palavra, linhaInicio);
-            case "LER":      return new Token(Terminais.PCLer,       palavra, linhaInicio);
-            case "IMPRIMIR": return new Token(Terminais.PCImprimir,  palavra, linhaInicio);
-            case "SE":       return new Token(Terminais.PCSe,        palavra, linhaInicio);
-            case "ENTAO":    return new Token(Terminais.PCEntao,     palavra, linhaInicio);
-            case "SENAO":    return new Token(Terminais.PCSenao,     palavra, linhaInicio);
-            case "ENQTO":    return new Token(Terminais.PCEnqto,     palavra, linhaInicio);
-            case "INI":      return new Token(Terminais.PCIni,       palavra, linhaInicio);
-            case "FIM":      return new Token(Terminais.PCFim,       palavra, linhaInicio);
-            case "E":        return new Token(Terminais.E,           palavra, linhaInicio);
-            case "OU":       return new Token(Terminais.OU,          palavra, linhaInicio);
-            default:         return new Token(Terminais.Var,         palavra, linhaInicio);
+            case "DEC":      return new Token(Terminais.PCDec, palavra, linhaInicio);
+            case "PROG":     return new Token(Terminais.PCProg, palavra, linhaInicio);
+            case "INT":      return new Token(Terminais.PCInt, palavra, linhaInicio);
+            case "REAL":     return new Token(Terminais.PCReal, palavra, linhaInicio);
+            case "LER":      return new Token(Terminais.PCLer, palavra, linhaInicio);
+            case "IMPRIMIR": return new Token(Terminais.PCImprimir, palavra, linhaInicio);
+            case "SE":       return new Token(Terminais.PCSe, palavra, linhaInicio);
+            case "ENTAO":    return new Token(Terminais.PCEntao, palavra, linhaInicio);
+            case "SENAO":    return new Token(Terminais.PCSenao, palavra, linhaInicio);
+            case "ENQTO":    return new Token(Terminais.PCEnqto, palavra, linhaInicio);
+            case "INI":      return new Token(Terminais.PCIni, palavra, linhaInicio);
+            case "FIM":      return new Token(Terminais.PCFim, palavra, linhaInicio);
+            case "E":        return new Token(Terminais.E, palavra, linhaInicio);
+            case "OU":       return new Token(Terminais.OU, palavra, linhaInicio);
+            default:         return new Token(Terminais.Var, palavra, linhaInicio);
         }
     }
 }
